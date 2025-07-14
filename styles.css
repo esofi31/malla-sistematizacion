@@ -12,6 +12,34 @@ h1 {
   margin-bottom: 30px;
 }
 
+.creditos-panel {
+  background-color: #f3e6ff;
+  border: 2px solid #d6b3f7;
+  padding: 20px;
+  margin: 0 auto 30px auto;
+  border-radius: 12px;
+  max-width: 800px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.creditos-panel h2 {
+  margin-top: 0;
+  color: #6a0dad;
+  text-align: center;
+}
+
+.creditos-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.creditos-panel li {
+  padding: 5px 0;
+  font-size: 1.05em;
+  color: #4b007d;
+}
+
 .malla {
   display: flex;
   flex-direction: column;
