@@ -1,4 +1,5 @@
-const ramos = [  // id, nombre, semestre, requisitos, créditos, tipo
+const ramos = [
+  // id, nombre, semestre, requisitos, créditos, tipo
   { id: "calculo_dif", nombre: "Cálculo Diferencial", semestre: "Semestre I", requisitos: [], creditos: 4, tipo: "ob_basicos" },
   { id: "algebra", nombre: "Álgebra Lineal", semestre: "Semestre I", requisitos: [], creditos: 3, tipo: "ob_basicos" },
   { id: "algoritmos", nombre: "Intro a Algoritmos", semestre: "Semestre I", requisitos: [], creditos: 3, tipo: "ob_basicos" },
@@ -80,11 +81,12 @@ function renderMalla() {
   semestres.forEach(sem => {
     const grupo = document.createElement("div");
     grupo.className = "semestre";
-    grupo.innerHTML = `<h2>${sem}</h2>`;
+    grupo.innerHTML = <h2>${sem}</h2>;
 
     ramos.filter(r => r.semestre === sem).forEach(ramo => {
       const btn = document.createElement("div");
       btn.className = "ramo";
+      btn.textContent = ramo.nombre;
 
       const requisitosOk = ramo.requisitos.every(id => estado[id]);
       const aprobado = estado[ramo.id];
@@ -103,18 +105,6 @@ function renderMalla() {
         renderMalla();
       };
 
-      // Mostrar requisitos como burbujas visuales
-      let bubbles = '';
-      if (ramo.requisitos.length > 0) {
-        bubbles = '<div class="requisitos">';
-        ramo.requisitos.forEach(id => {
-          const req = ramos.find(r => r.id === id);
-          bubbles += `<span class="requisito">${req.nombre}</span>`;
-        });
-        bubbles += '</div>';
-      }
-
-      btn.innerHTML = `<strong>${ramo.nombre}</strong><br><small>${ramo.creditos} créditos</small>${bubbles}`;
       grupo.appendChild(btn);
     });
 
@@ -130,27 +120,3 @@ function renderMalla() {
 }
 
 renderMalla();
-
-// Modal: resumen al hacer clic en créditos aprobados
-const totalSpan = document.getElementById("totalAprobados");
-const modal = document.getElementById("modal");
-const modalBody = document.getElementById("modal-body");
-const closeModal = document.querySelector(".close");
-
-totalSpan.style.cursor = "pointer";
-totalSpan.onclick = () => {
-  modalBody.innerHTML = `
-    <strong>Total aprobados:</strong> ${totalSpan.textContent} créditos<br>
-    <strong>Obligatorios Básicos:</strong> ${document.getElementById("ob_basicos").textContent}<br>
-    <strong>Obligatorios Complementarios:</strong> ${document.getElementById("ob_complementarios").textContent}<br>
-    <strong>Electivos Intrínsecos:</strong> ${document.getElementById("el_intrinsecos").textContent}<br>
-    <strong>Electivos Extrínsecos:</strong> ${document.getElementById("el_extrinsecos").textContent}<br>
-    <strong>Propedéutico:</strong> ${document.getElementById("propedeutico").textContent}
-  `;
-  modal.classList.remove("hidden");
-};
-
-closeModal.onclick = () => modal.classList.add("hidden");
-window.onclick = e => {
-  if (e.target === modal) modal.classList.add("hidden");
-};
